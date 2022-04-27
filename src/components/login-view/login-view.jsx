@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+import PropTypes from "prop-types";
+import { Form, Button, Card, Container, Col, Row } from 'react-bootstrap';
+
+import './login-view.scss';
+
 
 export function LoginView(props) {
   const [ username, setUsername ] = useState('');
@@ -13,16 +18,52 @@ export function LoginView(props) {
   };
 
   return (
-    <form>
-      <label>
-        Username:
-        <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-      </label>
-      <label>
-        Password:
-        <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-      </label>
-      <button type="submit" onClick={handleSubmit}>Submit</button>
-    </form>
-  );
-}
+
+    <Container>
+      <Row>
+        <Col></Col>
+        <Col>
+          <Card style={{ marginTop: 100, marginBottom: 50, width: '30'}}>
+            <Card.Body>
+              <Card.Title style={{textAlign: 'center', fontSize: '2m'}}></Card.Title>
+              <Form className='login-border'>
+                <Form.Group controlId="formGroupUsername">
+                  <Form.Label>Username:</Form.Label>
+                  <Form.Control 
+                    type="text" 
+                    value={username} 
+                    onChange={e => setUsername(e.target.value)} 
+                  />
+                </Form.Group>
+
+                <Form.Group controlId="formGroupPassword">
+                  <Form.Label>Password:</Form.Label>
+                  <Form.Control 
+                  type="password" 
+                  value={password}
+                  onChange={e => setPassword(e.target.value)} 
+                  />
+                </Form.Group>
+
+                <Button variant="primary" type="submit" 
+                  onClick={handleSubmit}>
+                  Submit
+                </Button>
+              </Form>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col></Col>
+      </Row>
+    </Container>  
+  )}
+
+  LoginView.propTypes = {
+    user: PropTypes.shape({
+        username: PropTypes.string.isRequired,
+        password: PropTypes.string.isRequired
+    }),
+    onLoggedIn: PropTypes.func.isRequired,
+}; 
+
+export default LoginView;

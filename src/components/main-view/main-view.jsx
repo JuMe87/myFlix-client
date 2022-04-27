@@ -1,10 +1,14 @@
 import React from 'react';
 import axios from 'axios';
+import { Col, Row } from 'react-bootstrap';
 
-import { LoginView } from '../login-view/login-view';
+import "./main-view.scss";
+
 import { RegistrationView } from '../registration-view/registration-view';
+import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import { NavbarView } from "../navbar-view/navbar-view";
 
 export class MainView extends React.Component {
 
@@ -24,29 +28,41 @@ export class MainView extends React.Component {
           movies: response.data
         });
       })
-      .catch(error => {
+     .catch(error => {
         console.log(error);
       });
   }
 
 /*When a movie is clicked, this function is invoked and updates the state of the `selectedMovie` *property to that movie*/
 
-  setSelectedMovie(movie) {
+  setSelectedMovie(newSelectedmovie) {
     this.setState({
-      selectedMovie: movie
+      selectedMovie: newSelectedmovie
     });
   }
+
+/* When a user successfully registered*/
+    
+  //onRegistration(register) {
+    //this.setState({
+      //register,
+    //});
+  //}
 
 /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
 
-  onLoggedIn(user) {
-    this.setState({
+onLoggedIn(user) {
+  this.setState({
       user
-    });
-  }
+  });
+}
 
   render() {
-    const { movies, selectedMovie, user } = this.state;
+    const { movies, selectedMovie, register, user } = this.state;
+
+    /* If user is not registered, the RegistrationView is rendered.*/
+
+    //if (!register) return (<RegistrationView onRegistration={(register) => this.onRegistration(register)} /> );
 
     /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
     if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
@@ -55,15 +71,24 @@ export class MainView extends React.Component {
     if (movies.length === 0) return <div className="main-view" />;
     
     return (
-      <div className="main-view">
-        {/*If the state of `selectedMovie` is not null, that selected movie will be returned otherwise, all *movies will be returned*/}
-        {selectedMovie
-          ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
-          : movies.map(movie => (
-            <MovieCard key={movie._id} movie={movie} onMovieClick={(newSelectedMovie) => { this.setSelectedMovie(newSelectedMovie) }}/>
-         ))
-        }
-      </div>
+      
+      // i did insert Navbar here but it didn't show on my page.//
+
+        <Row className="main-view justify-content-md-center">
+          {selectedMovie
+            ? (
+              <Col md={8}>
+                <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
+              </Col>
+            )
+            : movies.map(movie => (
+              <Col md={3}>
+                <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
+              </Col>
+            ))
+          }
+        </Row>
+      
     );
   }
 }
