@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Col, Row } from 'react-bootstrap';
+import PropTypes from "prop-types";
 
 import "./main-view.scss";
 
@@ -43,11 +44,11 @@ export class MainView extends React.Component {
 
 /* When a user successfully registered*/
     
-  //onRegistration(register) {
-    //this.setState({
-      //register,
-    //});
-  //}
+  onRegistration(register) {
+    this.setState({
+      register,
+    });
+  }
 
 /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
 
