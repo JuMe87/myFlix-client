@@ -25279,11 +25279,11 @@ class MainView extends _reactDefault.default.Component {
             selectedMovie: newSelectedmovie
         });
     }
-    /* When a user successfully registered*/ onRegistration(register) {
-        this.setState({
-            register
-        });
-    }
+    /* When a user successfully registered*/ //onRegistration(register) {
+    //this.setState({
+    //register,
+    //});
+    //}
     /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/ onLoggedIn(user) {
         this.setState({
             user
@@ -25291,15 +25291,7 @@ class MainView extends _reactDefault.default.Component {
     }
     render() {
         const { movies , selectedMovie , register , user  } = this.state;
-        /* If user is not registered, the RegistrationView is rendered.*/ if (!register) return(/*#__PURE__*/ _jsxRuntime.jsx(_registrationView.RegistrationView, {
-            onRegistration: (register1)=>this.onRegistration(register1)
-            ,
-            __source: {
-                fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 65
-            },
-            __self: this
-        }));
+        /* If user is not registered, the RegistrationView is rendered.*/ //if (!register) return (<RegistrationView onRegistration={(register) => this.onRegistration(register)} /> );
         /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/ if (!user) return(/*#__PURE__*/ _jsxRuntime.jsx(_loginView.LoginView, {
             onLoggedIn: (user1)=>this.onLoggedIn(user1)
             ,
@@ -27097,6 +27089,17 @@ function LoginView(props) {
                                             },
                                             __self: this,
                                             children: "Submit"
+                                        }),
+                                        /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Button, {
+                                            variant: "primary",
+                                            type: "submit",
+                                            onClick: handleSubmit,
+                                            __source: {
+                                                fileName: "src/components/login-view/login-view.jsx",
+                                                lineNumber: 53
+                                            },
+                                            __self: this,
+                                            children: "Register"
                                         })
                                     ]
                                 })
@@ -27107,7 +27110,7 @@ function LoginView(props) {
                 /*#__PURE__*/ _jsxRuntime.jsx(_reactBootstrap.Col, {
                     __source: {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 56
+                        lineNumber: 62
                     },
                     __self: this
                 })
