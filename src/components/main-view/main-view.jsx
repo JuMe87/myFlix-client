@@ -1,96 +1,105 @@
-import React from 'react';
-import axios from 'axios';
-import { Col, Row } from 'react-bootstrap';
+import React from "react"
+import axios from "axios"
+import { Col, Row } from "react-bootstrap"
 
-import "./main-view.scss";
+import "./main-view.scss"
 
-import { RegistrationView } from '../registration-view/registration-view';
-import { LoginView } from '../login-view/login-view';
-import { MovieCard } from '../movie-card/movie-card';
-import { MovieView } from '../movie-view/movie-view';
-import { NavbarView } from "../navbar-view/navbar-view";
+import { RegistrationView } from "../registration-view/registration-view"
+import { LoginView } from "../login-view/login-view"
+import { MovieCard } from "../movie-card/movie-card"
+import { MovieView } from "../movie-view/movie-view"
+import { NavbarView } from "../navbar-view/navbar-view"
 
 export class MainView extends React.Component {
+    constructor() {
+        super()
+        this.state = {
+            movies: [],
+            selectedMovie: null,
+            user: null,
+        }
+    }
 
-  constructor(){
-    super();
-    this.state = {
-      movies: [],
-      selectedMovie: null,
-      user: null
-    };
-  }
+    componentDidMount() {
+        axios
+            .get("https://julesmyflixdb.herokuapp.com/movies")
+            .then((response) => {
+                this.setState({
+                    movies: response.data,
+                })
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
 
-  componentDidMount(){
-    axios.get('https://julesmyflixdb.herokuapp.com/movies')
-      .then(response => {
+    /*When a movie is clicked, this function is invoked and updates the state of the `selectedMovie` *property to that movie*/
+
+    setSelectedMovie(newSelectedmovie) {
         this.setState({
-          movies: response.data
-        });
-      })
-     .catch(error => {
-        console.log(error);
-      });
-  }
+            selectedMovie: newSelectedmovie,
+        })
+    }
 
-/*When a movie is clicked, this function is invoked and updates the state of the `selectedMovie` *property to that movie*/
+    /* When a user successfully registered*/
 
-  setSelectedMovie(newSelectedmovie) {
-    this.setState({
-      selectedMovie: newSelectedmovie
-    });
-  }
-
-/* When a user successfully registered*/
-    
-  //onRegistration(register) {
+    //onRegistration(register) {
     //this.setState({
-      //register,
+    //register,
     //});
-  //}
+    //}
 
-/* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
+    /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
 
-  onLoggedIn(user) {
-    this.setState({
-      user
-    });
-  }
+    onLoggedIn(user) {
+        this.setState({
+            user,
+        })
+    }
 
-  render() {
-    const { movies, selectedMovie, register, user } = this.state;
+    render() {
+        const { movies, selectedMovie, register, user } = this.state
 
-    /* If user is not registered, the RegistrationView is rendered.*/
+        /* If user is not registered, the RegistrationView is rendered.*/
 
-    //if (!register) return (<RegistrationView onRegistration={(register) => this.onRegistration(register)} /> );
+        //if (!register) return (<RegistrationView onRegistration={(register) => this.onRegistration(register)} /> );
 
-    /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
-    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+        /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
+        if (!user)
+            return <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
 
-    // Before the movies have been loaded
-    if (movies.length === 0) return <div className="main-view" />;
-    
-    return (
-      
-      // i did insert Navbar here but it didn't show on my page.//
+        // Before the movies have been loaded
+        if (movies.length === 0) return <div className="main-view" />
 
-        <Row className="main-view justify-content-md-center">
-          {selectedMovie
-            ? (
-              <Col md={8}>
-                <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
-              </Col>
-            )
-            : movies.map(movie => (
-              <Col md={3}>
-                <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }}/>
-              </Col>
-            ))
-          }
-        </Row>
-      
-    );
-  }
+        return (
+            // i did insert Navbar here but it didn't show on my page.//
+
+            <Row className="main-view justify-content-md-center">
+                {selectedMovie ? (
+                    <Col md={8}>
+                        <MovieView
+                            movie={selectedMovie}
+                            onBackClick={(newSelectedMovie) => {
+                                this.setSelectedMovie(newSelectedMovie)
+                            }}
+                        />
+                    </Col>
+                ) : (
+                    movies.map((movie) => (
+                        <Col md={3}>
+                            <MovieCard
+                                key={movie._id}
+                                movie={movie}
+                                onMovieClick={(newSelectedMovie) => {
+                                    this.setSelectedMovie(newSelectedMovie)
+                                }}
+                            />
+                        </Col>
+                    ))
+                )}
+            </Row>
+        )
+    }
 }
-  
-export default MainView;
+
+export default MainView

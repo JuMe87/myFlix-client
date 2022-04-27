@@ -16,6 +16,7 @@
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.0.0-rc.0"
+    "@parcel/transformer-sass": "^2.0.0-rc.0",
+    "prettier": "2.6.2"
   }
 }
