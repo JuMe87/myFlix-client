@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import { Col, Row } from 'react-bootstrap';
-import PropTypes from "prop-types";
 
 import "./main-view.scss";
 
@@ -52,18 +51,18 @@ export class MainView extends React.Component {
 
 /* When a user successfully logs in, this function updates the `user` property in state to that *particular user*/
 
-onLoggedIn(user) {
-  this.setState({
+  onLoggedIn(user) {
+    this.setState({
       user
-  });
-}
+    });
+  }
 
   render() {
     const { movies, selectedMovie, register, user } = this.state;
 
     /* If user is not registered, the RegistrationView is rendered.*/
 
-    //if (!register) return (<RegistrationView onRegistration={(register) => this.onRegistration(register)} /> );
+    if (!register) return (<RegistrationView onRegistration={(register) => this.onRegistration(register)} /> );
 
     /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
     if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
