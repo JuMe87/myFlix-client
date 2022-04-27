@@ -1,0 +1,255 @@
+* {
+  background: #565656;
+  color: #fff;
+}
+
+Form {
+  font-family: "Cuprum", sans-serif;
+}
+
+.form-label {
+  margin: 1rem 0rem;
+}
+
+.button {
+  background: #e2b659;
+  font-family: "Cuprum", sans-serif;
+  border-radius: 5px;
+  padding: 0.4rem 1rem;
+  border: none;
+  margin-top: 1rem;
+  transition: 0.5s;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.button2 {
+  background: #565656;
+  font-family: "Cuprum", sans-serif;
+  border-radius: 5px;
+  padding: 0.4rem 1rem;
+  border: #e2b659 1px solid;
+  margin-top: 1rem;
+  margin-left: 2rem;
+  transition: 0.5s;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+.button2:hover {
+  opacity: 0.8;
+}
+
+input[type=text] {
+  background: #fff;
+}
+
+input[type=password] {
+  background: #fff;
+}
+* {
+  background: #565656;
+  color: #fff;
+}
+
+Form {
+  font-family: "Cuprum", sans-serif;
+}
+
+.form-label {
+  margin: 1rem 0rem;
+}
+
+.button {
+  background: #e2b659;
+  font-family: "Cuprum", sans-serif;
+  border-radius: 5px;
+  padding: 0.4rem 1rem;
+  border: none;
+  margin-top: 1rem;
+  transition: 0.5s;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.button2 {
+  background: #565656;
+  font-family: "Cuprum", sans-serif;
+  border-radius: 5px;
+  padding: 0.4rem 1rem;
+  border: #e2b659 1px solid;
+  margin-top: 1rem;
+  margin-left: 2rem;
+  transition: 0.5s;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+.button2:hover {
+  opacity: 0.8;
+}
+
+input[type=text] {
+  background: #fff;
+}
+
+input[type=password] {
+  background: #fff;
+}
+#movie-card {
+  height: 600px;
+  margin-top: 25px;
+}
+
+#movie-image {
+  max-width: 100%;
+  height: 375px;
+}
+
+#movie-title {
+  font-size: 28px;
+  height: 100px;
+}
+
+#movie-genre {
+  font-size: 18px;
+  height: 25px;
+  color: black;
+}
+
+#open-button {
+  font-size: 18px;
+  background-color: beige;
+  color: rgb(77, 10, 66);
+  border: none;
+  margin-top: 8px;
+  padding: 6px;
+  border-radius: 20%;
+}
+#movie__img {
+  max-height: 600px;
+  max-width: 100%;
+}
+
+.movie__title {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.movie__header {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.movie__text {
+  font-size: 16px;
+}
+
+#back-button {
+  font-size: 18px;
+  background-color: beige;
+  color: rgb(51, 17, 66);
+  border: none;
+  margin-top: 8px;
+  padding: 6px;
+  border-radius: 20%;
+}
+* {
+  background: #565656;
+  color: #fff;
+}
+
+Form {
+  font-family: "Cuprum", sans-serif;
+}
+
+.form-label {
+  margin: 1rem 0rem;
+}
+
+.button {
+  background: #e2b659;
+  font-family: "Cuprum", sans-serif;
+  border-radius: 5px;
+  padding: 0.4rem 1rem;
+  border: none;
+  margin-top: 1rem;
+  transition: 0.5s;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.button2 {
+  background: #565656;
+  font-family: "Cuprum", sans-serif;
+  border-radius: 5px;
+  padding: 0.4rem 1rem;
+  border: #e2b659 1px solid;
+  margin-top: 1rem;
+  margin-left: 2rem;
+  transition: 0.5s;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+.button2:hover {
+  opacity: 0.8;
+}
+
+input[type=text] {
+  background: #fff;
+}
+
+input[type=password] {
+  background: #fff;
+}
+:root {
+  --fontsize-navbar-brand: 30px;
+  --fontsize-navbar-link: 20px;
+  --fontweight-navbar-brand: 900;
+  --fontweight-navbar-link: 600;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "League Spartan", sans-serif;
+}
+
+#navbar {
+  background-color: #e5383b;
+  margin-bottom: 10px;
+  border: 5px;
+  border-color: #f1fffa;
+}
+
+#navbar-container {
+  background-color: #e5383b;
+  margin: 0;
+}
+
+#navbar-brand {
+  background-color: #e5383b;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+#nav {
+  background-color: #e5383b;
+}
+
+#nav-link {
+  background-color: #e5383b;
+  font-size: 20px;
+  font-weight: 600;
+  color: #020402;
+}
+.my-flix {
+  color: steelblue;
+}
+/*# sourceMappingURL=index.1d334ea1.css.map */

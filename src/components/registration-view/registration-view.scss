@@ -1,0 +1,72 @@
+$primary-font: "Cuprum", sans-serif;
+$secondary-font: "Alfa Slab One", cursive;
+$primary-color: #565656;
+$secondary-color: #fff;
+$third-color: #e2b659;
+
+@mixin buttonstyle {
+  background: $third-color;
+  font-family: $primary-font;
+  border-radius: 5px;
+  padding: 0.4rem 1rem;
+  border: none;
+  margin-top: 1rem;
+  transition: 0.5s;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+@mixin buttonstyle2 {
+  background: $primary-color;
+  font-family: $primary-font;
+  border-radius: 5px;
+  padding: 0.4rem 1rem;
+  border: $third-color 1px solid;
+  margin-top: 1rem;
+  margin-left:2rem;
+  transition: 0.5s;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+@mixin darktheme {
+  background: $primary-color;
+  color: $secondary-color;
+}
+
+* {
+  @include darktheme();
+}
+
+Form {
+
+  font-family: $primary-font;
+}
+
+.form-label {
+  margin: 1rem 0rem;
+}
+
+.button {
+  @include buttonstyle();
+}
+
+.button2{
+  @include buttonstyle2();
+}
+
+
+
+.button:hover {
+  opacity: 0.8;
+}
+
+
+.button2:hover {
+  opacity: 0.8;
+}
+
+input[type="text"] {
+  background: $secondary-color;
+}
+input[type="password"] {
+  background: $secondary-color;
+}

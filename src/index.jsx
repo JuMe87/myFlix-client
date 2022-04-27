@@ -1,4 +1,5 @@
 import React from 'react';
+import Container from 'react-bootstrap/Container';
 import ReactDOM from 'react-dom';
 import MainView from './components/main-view/main-view';
 
@@ -11,7 +12,9 @@ class MyFlixApplication extends React.Component {
   
   render() {
     return (
+      <Container>
         <MainView />
+      </Container>
     );
   }
 }
