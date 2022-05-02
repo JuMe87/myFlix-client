@@ -24,6 +24,22 @@ export class MainView extends React.Component {
         }
     }
 
+    getMovies(token) {
+        axios
+            .get("https://julesmyflixdb.herokuapp.com/movies", {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((response) => {
+                // Assign the result to the state
+                this.setState({
+                    movies: response.data,
+                })
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }
+
     componentDidMount() {
         let accessToken = localStorage.getItem("token")
         if (accessToken !== null) {
@@ -45,20 +61,12 @@ export class MainView extends React.Component {
         this.getMovies(authData.token)
     }
 
-    getMovies(token) {
-        axios
-            .get("https://julesmyflixdb.herokuapp.com/movies", {
-                headers: { Authorization: `Bearer ${token}` },
-            })
-            .then((response) => {
-                // Assign the result to the state
-                this.setState({
-                    movies: response.data,
-                })
-            })
-            .catch(function (error) {
-                console.log(error)
-            })
+    onLoggedOut() {
+        localStorage.removeItem("token")
+        localStorage.removeItem("user")
+        this.setState({
+            user: null,
+        })
     }
 
     // componentDidMount() {
@@ -73,14 +81,6 @@ export class MainView extends React.Component {
     //             console.log(error)
     //         })
     // }
-
-    onLoggedOut() {
-        localStorage.removeItem("token")
-        localStorage.removeItem("user")
-        this.setState({
-            user: null,
-        })
-    }
 
     render() {
         const { movies, user } = this.state
@@ -116,7 +116,11 @@ export class MainView extends React.Component {
                                     )
                                 if (movies.length === 0)
                                     return <div className="main-view" />
-                                return <MoviesList movies={movies} />
+                                return movies.map((m) => (
+                                    <Col md={3} key={m._id}>
+                                        <MovieCard movie={m} />
+                                    </Col>
+                                ))
                             }}
                         />
 
