@@ -1,24 +1,44 @@
 :root {
-  --fontsize-button-text: 15px;
-  --fontweight-button-text: 400;
+  --fontsize-navbar-brand: 30px;
+  --fontsize-navbar-link: 20px;
+  --fontweight-navbar-brand: 900;
+  --fontweight-navbar-link: 600;
 }
 
 * {
   box-sizing: border-box;
   font-family: "League Spartan", sans-serif;
-  background-color: #020402;
-  color: #f1fffa;
 }
 
-#logout-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  color: #f1fffa;
+#navbar {
   background-color: #e5383b;
-  border: none;
-  font-size: var(--fontsize-button-text);
-  font-weight: var(--fontweight-button-text);
+  margin-bottom: 10px;
+  border: 5px;
+  border-color: #f1fffa;
+}
+
+#navbar-container {
+  background-color: #e5383b;
+  margin: 0;
+}
+
+#navbar-brand {
+  background-color: #e5383b;
+  color: #f1fffa;
+  font-size: 30px;
+  font-weight: 900;
+  margin-left: 20px;
+}
+
+#nav {
+  background-color: #e5383b;
+}
+
+#nav-link {
+  background-color: #e5383b;
+  color: #f1fffa;
+  font-size: 20px;
+  font-weight: 600;
 }
 :root {
   --fontsize-login-card-title: 30px;
@@ -204,48 +224,28 @@
 
 
 :root {
-  --fontsize-navbar-brand: 30px;
-  --fontsize-navbar-link: 20px;
-  --fontweight-navbar-brand: 900;
-  --fontweight-navbar-link: 600;
+  --fontsize-button-text: 15px;
+  --fontweight-button-text: 400;
 }
 
 * {
   box-sizing: border-box;
   font-family: "League Spartan", sans-serif;
-}
-
-#navbar {
-  background-color: #e5383b;
-  margin-bottom: 10px;
-  border: 5px;
-  border-color: #f1fffa;
-}
-
-#navbar-container {
-  background-color: #e5383b;
-  margin: 0;
-}
-
-#navbar-brand {
-  background-color: #e5383b;
+  background-color: #020402;
   color: #f1fffa;
-  font-size: 30px;
-  font-weight: 900;
-  margin-left: 20px;
 }
 
-#nav {
-  background-color: #e5383b;
-}
-
-#nav-link {
-  background-color: #e5383b;
+#logout-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   color: #f1fffa;
-  font-size: 20px;
-  font-weight: 600;
+  background-color: #e5383b;
+  border: none;
+  font-size: var(--fontsize-button-text);
+  font-weight: var(--fontweight-button-text);
 }
 #main-view {
   margin-top: 100px;
 }
-/*# sourceMappingURL=index.17d663fa.css.map */
+/*# sourceMappingURL=index.f99bb150.css.map */
