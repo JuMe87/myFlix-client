@@ -1,6 +1,15 @@
 import React, { useState } from "react"
 import PropTypes from "prop-types"
-import { Form, Button, Card, Container, Col, Row } from "react-bootstrap"
+import {
+    Form,
+    Button,
+    Card,
+    CardGroup,
+    Container,
+    Col,
+    Row,
+} from "react-bootstrap"
+
 import axios from "axios"
 
 import "./login-view.scss"
@@ -9,82 +18,107 @@ export function LoginView(props) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
+    //validation declarations
+    const [usernameErr, setUsernameErr] = useState("")
+    const [passwordErr, setPasswordErr] = useState("")
+
+    const validate = () => {
+        let isReq = true
+        if (!username) {
+            setUsernameErr("Username Required")
+            isReq = false
+        } else if (username.length < 8) {
+            setUsernameErr("Username must be at least 8 characters long")
+            isReq = false
+        }
+        if (!password) {
+            setPasswordErr("Password Required")
+            isReq = false
+        } else if (password.length < 6) {
+            setPasswordErr("Password must be at least 6 characters long")
+            isReq = false
+        }
+        return isReq
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        /* Send a request to the server for authentication */
-        axios
-            .post("https://julesmyflixdb.herokuapp.com/login", {
-                Username: username,
-                Password: password,
-            })
-            .then((response) => {
-                const data = response.data
-                props.onLoggedIn(data) //props.onLoggedIn(username) has been changed
-            })
-            .catch((e) => {
-                console.log("no such user")
-            })
+        const isReq = validate()
+        if (isReq) {
+            /* Send a request to the server for authentication */
+            axios
+                .post("https://julesmyflixdb.herokuapp.com/login", {
+                    Username: username,
+                    Password: password,
+                })
+                .then((response) => {
+                    const data = response.data
+                    props.onLoggedIn(data) //props.onLoggedIn(username) has been changed
+                })
+                .catch((e) => {
+                    console.log("no such user")
+                })
+        }
     }
 
     return (
-        <Container>
+        <Container id="login-form">
             <Row>
-                <Col></Col>
                 <Col>
-                    <Card
-                        style={{
-                            marginTop: 100,
-                            marginBottom: 50,
-                            width: "30",
-                        }}
-                    >
-                        <Card.Body>
-                            <Card.Title
-                                style={{ textAlign: "center", fontSize: "2m" }}
-                            ></Card.Title>
-                            <Form className="login-border">
-                                <Form.Group controlId="formGroupUsername">
-                                    <Form.Label>Username:</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        value={username}
-                                        onChange={(e) =>
-                                            setUsername(e.target.value)
-                                        }
-                                    />
-                                </Form.Group>
-
-                                <Form.Group controlId="formGroupPassword">
-                                    <Form.Label>Password:</Form.Label>
-                                    <Form.Control
-                                        type="password"
-                                        value={password}
-                                        onChange={(e) =>
-                                            setPassword(e.target.value)
-                                        }
-                                    />
-                                </Form.Group>
-
-                                <Button
-                                    variant="primary"
-                                    type="submit"
-                                    onClick={handleSubmit}
-                                >
-                                    Submit
-                                </Button>
-
-                                <Button
-                                    variant="primary"
-                                    type="submit"
-                                    onClick={handleSubmit}
-                                >
-                                    Register
-                                </Button>
-                            </Form>
-                        </Card.Body>
-                    </Card>
+                    <CardGroup>
+                        <Card id="login-card">
+                            <Card.Body>
+                                <Card.Title id="login-card-title">
+                                    Please login
+                                </Card.Title>
+                                <Form>
+                                    <Form.Group controlId="formUsername">
+                                        <Form.Label id="login-form-label">
+                                            Username
+                                        </Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            onChange={(e) =>
+                                                setUsername(e.target.value)
+                                            }
+                                            placeholder="Enter your username"
+                                        />
+                                        {usernameErr && <p>{usernameErr}</p>}
+                                    </Form.Group>
+                                    <Form.Group controlId="formPassword">
+                                        <Form.Label id="login-form-label">
+                                            Password
+                                        </Form.Label>
+                                        <Form.Control
+                                            type="password"
+                                            onChange={(e) =>
+                                                setPassword(e.target.value)
+                                            }
+                                            placeholder="Enter your password"
+                                        />
+                                        {passwordErr && <p>{passwordErr}</p>}
+                                    </Form.Group>
+                                    <Button
+                                        id="login-button"
+                                        variant="primary"
+                                        type="submit"
+                                        onClick={handleSubmit}
+                                    >
+                                        Login
+                                    </Button>
+                                </Form>
+                                {/* <Card.Text>Not registered yet?</Card.Text>
+                                <div id="register-container">
+                                    <Link to="/register">
+                                        <Button id="link-to-register-button">
+                                            Register now
+                                        </Button>
+                                    </Link>
+                                </div> */}
+                            </Card.Body>
+                        </Card>
+                    </CardGroup>
                 </Col>
-                <Col></Col>
             </Row>
         </Container>
     )
@@ -92,8 +126,8 @@ export function LoginView(props) {
 
 LoginView.propTypes = {
     user: PropTypes.shape({
-        username: PropTypes.string.isRequired,
-        password: PropTypes.string.isRequired,
+        Username: PropTypes.string.isRequired,
+        Password: PropTypes.string.isRequired,
     }),
     onLoggedIn: PropTypes.func.isRequired,
 }

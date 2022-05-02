@@ -19,25 +19,62 @@ export function RegistrationView(props) {
     const [email, setEmail] = useState("")
     const [birthday, setBirthday] = useState("")
 
+    //Declare hook for each input
+    const [usernameErr, setUsernameErr] = useState("")
+    const [passwordErr, setPasswordErr] = useState("")
+    const [emailErr, setEmailErr] = useState("")
+
+    const validate = () => {
+        let isReq = true
+        if (!username) {
+            setUsernameErr("Create Username")
+            isReq = false
+        } else if (username.length < 8) {
+            setUsernameErr("Username must be 8 characters long")
+            isReq = false
+        }
+        if (!password) {
+            setPasswordErr("Create Password(Min 8 characters)")
+            isReq = false
+        } else if (password.length < 6) {
+            setPasswordErr("Password must be 6 characters long")
+            isReq = false
+        }
+        if (!email) {
+            setEmailErr("Add Email")
+            isReq = false
+        } else if (email.indexOf("@") === -1) {
+            setEmail("Invalid Email")
+            isReq = false
+        }
+
+        return isReq
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios
-            .post("https://julesmyflixdb.herokuapp.com/users", {
-                Username: username,
-                Password: password,
-                Email: email,
-                Birthday: birthday,
-            })
-            .then((response) => {
-                const data = response.date
-                console.log(data)
-                window.open("/", "_self")
-                // The second argument '_self' is necesarry to that the page will open in current tab
-            })
-            .catch((e) => {
-                console.log("error registering the user")
-                alert("Something isn't entered right")
-            })
+        const isReq = validate()
+        if (isReq) {
+            axios
+                .post("https://julesmyflixdb.herokuapp.com/users", {
+                    Username: username,
+                    Password: password,
+                    Email: email,
+                    Birthday: birthday,
+                })
+                .then((response) => {
+                    const data = response.data
+                    console.log(data)
+                    alert("Success! Please Login.")
+                    window.open("/", "_self")
+                    //The second argument '_self' is necessary so that the page will
+                    //open in the current tab
+                })
+                .catch((response) => {
+                    console.error(response)
+                    alert("something wasn't entered right")
+                })
+        }
     }
 
     return (
@@ -71,8 +108,8 @@ export function RegistrationView(props) {
                                                 setPassword(e.target.value)
                                             }
                                             required
-                                            minLenght="8"
-                                            placeholder="Your password must be 8 or more characters."
+                                            minlenght="6"
+                                            placeholder="Your password must be 6 or more characters."
                                         />
                                     </Form.Group>
 
@@ -120,7 +157,12 @@ export function RegistrationView(props) {
 }
 
 RegistrationView.propTypes = {
-    onRegistration: PropTypes.func.isRequired,
+    register: PropTypes.shape({
+        Username: PropTypes.string.isRequired,
+        Password: PropTypes.string.isRequired,
+        Email: PropTypes.string.isRequired,
+        Birthday: PropTypes.string.isRequired,
+    }),
 }
 
 export default RegistrationView
