@@ -2,71 +2,60 @@ import React from "react"
 import PropTypes from "prop-types"
 import "./director-view.scss"
 
-import { Container, Row, Col, Card, Button, CardGroup } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import { Row, Col, Button } from "react-bootstrap"
 
 export class DirectorView extends React.Component {
     render() {
         const { director, onBackClick } = this.props
 
         return (
-            <Container>
+            <>
+                <Row>
+                    <Col
+                        med={4}
+                        className="director-view bg-light text-black"
+                        style={{ marginTop: 150 }}
+                    >
+                        <div className="director-name" />
+                        <span className="label">Director: </span>
+                        <span className="value">{director.Name}</span>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col med={4} className="director-view bg-light text-black">
+                        <div className="director-name" />
+                        <span className="label">Bio: </span>
+                        <span className="value">{director.Bio}</span>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col med={4} className="director-view bg-light text-black">
+                        <div className="director-name" />
+                        <span className="label">Birth: </span>
+                        <span className="value">{director.Birth}</span>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col med={4} className="director-view bg-light text-black">
+                        <div className="director-name" />
+                        <span className="label">Death: </span>
+                        <span className="value">{director.Death}</span>
+                    </Col>
+                </Row>
                 <Row>
                     <Col>
-                        <Card id="director-view">
-                            <Card.Body>
-                                <Card.Title>{director.Name}</Card.Title>
-                                <Card.Text>Bio: {director.Bio}</Card.Text>
-                                <Card.Text>
-                                    Birthday: {director.Birth}
-                                </Card.Text>
-                                <Card.Text>Death: {director.Death}</Card.Text>
-                                <Button
-                                    id="director-back-button"
-                                    onClick={() => {
-                                        onBackClick()
-                                    }}
-                                >
-                                    Back
-                                </Button>
-                            </Card.Body>
-                        </Card>
+                        <Button
+                            onClick={() => {
+                                onBackClick(null)
+                            }}
+                            variant="danger"
+                            style={{ marginTop: 50 }}
+                        >
+                            Back
+                        </Button>
                     </Col>
                 </Row>
-                <Row>
-                    <Col md={12}>
-                        <CardGroup>
-                            {movies.map((movie) => (
-                                <Card
-                                    className="favorite-movie card-content"
-                                    key={movie._id}
-                                >
-                                    <Card.Img
-                                        className="fav-poster"
-                                        variant="top"
-                                        src={movie.ImagePath}
-                                    />
-                                    <Card.Body
-                                        style={{ backgroundColor: "black" }}
-                                    >
-                                        <Card.Title className="movie_title">
-                                            {movie.Title}
-                                        </Card.Title>
-                                        <Link to={`/movies/${movie._id}`}>
-                                            <Button
-                                                id="card-button"
-                                                variant="link"
-                                            >
-                                                Show more
-                                            </Button>
-                                        </Link>
-                                    </Card.Body>
-                                </Card>
-                            ))}
-                        </CardGroup>
-                    </Col>
-                </Row>
-            </Container>
+            </>
         )
     }
 }
@@ -74,6 +63,9 @@ export class DirectorView extends React.Component {
 DirectorView.propTypes = {
     director: PropTypes.shape({
         Name: PropTypes.string.isRequired,
+        Bio: PropTypes.string.isRequired,
+        Birth: PropTypes.string.isRequired,
+        Death: PropTypes.string.isRequired,
     }).isRequired,
     onBackClick: PropTypes.func.isRequired,
 }

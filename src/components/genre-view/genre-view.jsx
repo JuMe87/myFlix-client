@@ -3,67 +3,46 @@ import PropTypes from "prop-types"
 
 import "./genre-view.scss"
 
-import { Container, Row, Col, Card, Button, CardGroup } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import { Row, Col, Button } from "react-bootstrap"
 
 export class GenreView extends React.Component {
     render() {
         const { genre, onBackClick } = this.props
 
         return (
-            <Container>
+            <>
+                <Row>
+                    <Col
+                        med={4}
+                        className="genre-view bg-light text-black"
+                        style={{ marginTop: 150 }}
+                    >
+                        <div className="genre-name" />
+                        <span className="label">Genre: </span>
+                        <span className="value">{genre.Name}</span>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col med={4} className="genre-view bg-light text-black">
+                        <div className="genre-description" />
+                        <span className="label">Description: </span>
+                        <span className="value">{genre.Description}</span>
+                    </Col>
+                </Row>
                 <Row>
                     <Col>
-                        <Card id="genre-view">
-                            <Card.Body>
-                                <Card.Title>{genre.Name}</Card.Title>
-                                <Card.Text>Bio: {genre.Description}</Card.Text>
-                                <Button
-                                    id="genre-back-button"
-                                    onClick={() => {
-                                        onBackClick()
-                                    }}
-                                >
-                                    Back
-                                </Button>
-                            </Card.Body>
-                        </Card>
+                        <Button
+                            onClick={() => {
+                                onBackClick(null)
+                            }}
+                            variant="danger"
+                            style={{ marginTop: 50 }}
+                        >
+                            Back
+                        </Button>
                     </Col>
                 </Row>
-                <Row>
-                    <Col md={30}>
-                        <CardGroup>
-                            {movies.map((movie) => (
-                                <Card
-                                    className="favorite-movie card-content"
-                                    key={movie._id}
-                                >
-                                    <Card.Img
-                                        className="fav-poster"
-                                        variant="top"
-                                        src={movie.ImagePath}
-                                    />
-                                    <Card.Body
-                                        style={{ backgroundColor: "black" }}
-                                    >
-                                        <Card.Title className="movie_title">
-                                            {movie.Title}
-                                        </Card.Title>
-                                        <Link to={`/movies/${movie._id}`}>
-                                            <Button
-                                                id="card-button"
-                                                variant="link"
-                                            >
-                                                Show more
-                                            </Button>
-                                        </Link>
-                                    </Card.Body>
-                                </Card>
-                            ))}
-                        </CardGroup>
-                    </Col>
-                </Row>
-            </Container>
+            </>
         )
     }
 }
@@ -71,6 +50,7 @@ export class GenreView extends React.Component {
 GenreView.propTypes = {
     genre: PropTypes.shape({
         Name: PropTypes.string.isRequired,
+        Description: PropTypes.string.isRequired,
     }).isRequired,
     onBackClick: PropTypes.func.isRequired,
 }

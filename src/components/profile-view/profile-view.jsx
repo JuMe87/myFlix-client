@@ -1,5 +1,5 @@
 import React from "react"
-
+import axios from "axios"
 import "./profile-view.scss"
 import PropTypes from "prop-types"
 
@@ -13,7 +13,6 @@ import {
     FormGroup,
     FormControl,
 } from "react-bootstrap"
-import axios from "axios"
 
 export class ProfileView extends React.Component {
     constructor() {
@@ -161,7 +160,7 @@ export class ProfileView extends React.Component {
     }
 
     render() {
-        const { movies, onBackClick } = this.props
+        const { movies } = this.props
         const { FavoriteMovies, Username, Email, Birthday } = this.state
 
         if (!Username) {
@@ -236,9 +235,7 @@ export class ProfileView extends React.Component {
                                             name="Birthday"
                                             value={Birthday}
                                             onChange={(e) =>
-                                                this.setBirthdaye(
-                                                    e.target.value
-                                                )
+                                                this.setBirthday(e.target.value)
                                             }
                                             required
                                         />
@@ -290,6 +287,7 @@ export class ProfileView extends React.Component {
                                                         <Card.Img
                                                             className="favorite-movie-image"
                                                             variant="top"
+                                                            crossOrigin="true"
                                                             src={
                                                                 movie.ImagePath
                                                             }

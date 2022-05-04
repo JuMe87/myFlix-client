@@ -14,16 +14,18 @@ export class MovieCard extends React.Component {
         return (
             <Container>
                 <CardGroup>
-                    <Card id="movie-card">
-                        <Card.Img variant="top" src={movie.ImagePath} />
+                    <Card>
+                        <Card.Img
+                            variant="top"
+                            img
+                            crossOrigin="true"
+                            src={movie.ImagePath}
+                        />
                         <Card.Body>
-                            <Card.Title id="card-title">
-                                {movie.Title}
-                            </Card.Title>
+                            <Card.Title>{movie.Title}</Card.Title>
+                            <Card.Text>{movie.Description}</Card.Text>
                             <Link to={`/movies/${movie._id}`}>
-                                <Button id="card-button" variant="link">
-                                    Show more
-                                </Button>
+                                <Button variant="link">Open</Button>
                             </Link>
                         </Card.Body>
                     </Card>
@@ -38,15 +40,14 @@ MovieCard.propTypes = {
         Title: PropTypes.string.isRequired,
         Description: PropTypes.string.isRequired,
         ImagePath: PropTypes.string.isRequired,
-        Year: PropTypes.string.isRequired,
         Genre: PropTypes.shape({
             Name: PropTypes.string.isRequired,
             Description: PropTypes.string.isRequired,
         }).isRequired,
         Director: PropTypes.shape({
             Name: PropTypes.string.isRequired,
-            About: PropTypes.string.isRequired,
-            Born: PropTypes.string.isRequired,
+            Bio: PropTypes.string.isRequired,
+            Birth: PropTypes.string.isRequired,
             Death: PropTypes.string.isRequired,
         }).isRequired,
     }).isRequired,

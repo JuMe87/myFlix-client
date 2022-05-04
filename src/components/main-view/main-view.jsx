@@ -69,23 +69,8 @@ export class MainView extends React.Component {
         })
     }
 
-    // componentDidMount() {
-    //     axios
-    //         .get("https://julesmyflixdb.herokuapp.com/movies")
-    //         .then((response) => {
-    //             this.setState({
-    //                 movies: response.data,
-    //             })
-    //         })
-    //         .catch((error) => {
-    //             console.log(error)
-    //         })
-    // }
-
     render() {
         const { movies, user } = this.state
-
-        // if (!register) return <RegistrationView onRegistration={(register) => this.onRegistration(register)} />;
 
         return (
             <Router>
@@ -125,6 +110,20 @@ export class MainView extends React.Component {
                         />
 
                         <Route
+                            exact
+                            path="/login"
+                            render={() => {
+                                if (user) return <Redirect to="/" />
+                                return (
+                                    <Col>
+                                        <LoginView />
+                                    </Col>
+                                )
+                            }}
+                        />
+
+                        <Route
+                            exact
                             path="/register"
                             render={() => {
                                 if (user) return <Redirect to="/" />
@@ -137,6 +136,7 @@ export class MainView extends React.Component {
                         />
 
                         <Route
+                            exact
                             path="/movies/:movieId"
                             render={({ match, history }) => {
                                 if (!user)
@@ -168,7 +168,7 @@ export class MainView extends React.Component {
 
                         <Route
                             exact
-                            path="/director/:name"
+                            path="/directors/:name"
                             render={({ match, history }) => {
                                 if (!user)
                                     return (
@@ -201,7 +201,7 @@ export class MainView extends React.Component {
 
                         <Route
                             exact
-                            path="/genre/:name"
+                            path="/genres/:name"
                             render={({ match, history }) => {
                                 if (!user)
                                     return (
@@ -233,6 +233,7 @@ export class MainView extends React.Component {
                         />
 
                         <Route
+                            exact
                             path="/users/:username"
                             render={({ history, match }) => {
                                 if (!user)
@@ -258,12 +259,12 @@ export class MainView extends React.Component {
                         />
 
                         <Route
-                            path={"/user-update/${user}"}
-                            render={({ match, history }) => {
+                            path={`/users/${user}`}
+                            render={({ history }) => {
                                 if (!user) return <Redirect to="/" />
                                 return (
                                     <Col>
-                                        <UserUpdate
+                                        <ProfileView
                                             user={user}
                                             onBackClick={() => history.goBack()}
                                         />
