@@ -12,23 +12,26 @@ import {
 
 import axios from "axios"
 
+import { Link } from "react-router-dom"
+
 import "./login-view.scss"
 
 export function LoginView(props) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
-    //validation declarations
+    // Declare hook for each input
     const [usernameErr, setUsernameErr] = useState("")
     const [passwordErr, setPasswordErr] = useState("")
 
+    // validate user inputs
     const validate = () => {
         let isReq = true
         if (!username) {
             setUsernameErr("Username Required")
             isReq = false
-        } else if (username.length < 8) {
-            setUsernameErr("Username must be at least 8 characters long")
+        } else if (username.length < 2) {
+            setUsernameErr("Username must be at least 2 characters long")
             isReq = false
         }
         if (!password) {
@@ -56,69 +59,66 @@ export function LoginView(props) {
                     props.onLoggedIn(data) //props.onLoggedIn(username) has been changed
                 })
                 .catch((e) => {
-                    console.log("no such user")
+                    console.log("no such user", e)
                 })
         }
     }
 
     return (
-        <Container id="login-form">
+        <Container>
             <Row>
+                <Col></Col>
                 <Col>
-                    <CardGroup>
-                        <Card id="login-card">
-                            <Card.Body>
-                                <Card.Title id="login-card-title">
-                                    Please login
-                                </Card.Title>
-                                <Form>
-                                    <Form.Group controlId="formUsername">
-                                        <Form.Label id="login-form-label">
-                                            Username
-                                        </Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            onChange={(e) =>
-                                                setUsername(e.target.value)
-                                            }
-                                            placeholder="Enter your username"
-                                        />
-                                        {usernameErr && <p>{usernameErr}</p>}
-                                    </Form.Group>
-                                    <Form.Group controlId="formPassword">
-                                        <Form.Label id="login-form-label">
-                                            Password
-                                        </Form.Label>
-                                        <Form.Control
-                                            type="password"
-                                            onChange={(e) =>
-                                                setPassword(e.target.value)
-                                            }
-                                            placeholder="Enter your password"
-                                        />
-                                        {passwordErr && <p>{passwordErr}</p>}
-                                    </Form.Group>
-                                    <Button
-                                        id="login-button"
-                                        variant="primary"
-                                        type="submit"
-                                        onClick={handleSubmit}
-                                    >
-                                        Login
-                                    </Button>
-                                </Form>
-                                {/* <Card.Text>Not registered yet?</Card.Text>
-                                <div id="register-container">
-                                    <Link to="/register">
-                                        <Button id="link-to-register-button">
-                                            Register now
-                                        </Button>
-                                    </Link>
-                                </div> */}
-                            </Card.Body>
-                        </Card>
-                    </CardGroup>
+                    <Card
+                        style={{
+                            marginTop: 100,
+                            marginBottom: 50,
+                            width: "30",
+                        }}
+                    >
+                        <Card.Body>
+                            <Card.Title
+                                style={{ textAlign: "center", fontSize: "2m" }}
+                            >
+                                Please login
+                            </Card.Title>
+                            <Form className="login-border">
+                                <Form.Group controlId="formGroupUsername">
+                                    <Form.Label>Username</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        value={username}
+                                        onChange={(e) =>
+                                            setUsername(e.target.value)
+                                        }
+                                        placeholder="Enter your username"
+                                    />
+                                </Form.Group>
+
+                                <Form.Group controlId="formGroupPassword">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        value={password}
+                                        onChange={(e) =>
+                                            setPassword(e.target.value)
+                                        }
+                                        placeholder="Enter your password"
+                                    />
+                                </Form.Group>
+
+                                <Button
+                                    variant="primary"
+                                    type="submit"
+                                    onClick={handleSubmit}
+                                >
+                                    Submit
+                                </Button>
+                            </Form>
+                        </Card.Body>
+                    </Card>
                 </Col>
+                <Col></Col>
             </Row>
         </Container>
     )
