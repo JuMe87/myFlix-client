@@ -23,27 +23,35 @@ export class DirectorView extends React.Component {
                     <Col>
                         <Card
                             style={{
-                                marginTop: 100,
+                                marginTop: 150,
                                 marginBottom: 50,
-                                width: "30",
+                                width: 300,
                             }}
                         >
                             <Card.Body>
-                                <div className="director-name" />
-                                <span className="label">Director: </span>
-                                <span className="value">{director.Name}</span>
-
-                                <div className="director-name" />
-                                <span className="label">Bio: </span>
-                                <span className="value">{director.Bio}</span>
-
-                                <div className="director-name" />
-                                <span className="label">Birth: </span>
-                                <span className="value">{director.Birth}</span>
-
-                                <div className="director-name" />
-                                <span className="label">Death: </span>
-                                <span className="value">{director.Death}</span>
+                                <Card.Title>
+                                    <span className="label">Director: </span>
+                                    <span className="value">
+                                        {director.Name}
+                                    </span>
+                                </Card.Title>
+                                <Card.Text>
+                                    <span className="value">
+                                        {director.Bio}
+                                    </span>
+                                </Card.Text>
+                                <Card.Text>
+                                    <span className="label">Birth: </span>
+                                    <span className="value">
+                                        {director.Birth}
+                                    </span>
+                                </Card.Text>
+                                <Card.Text>
+                                    <span className="label">Death: </span>
+                                    <span className="value">
+                                        {director.Death}
+                                    </span>
+                                </Card.Text>
 
                                 <Button
                                     variant="primary"

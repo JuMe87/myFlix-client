@@ -24,7 +24,7 @@ export class GenreView extends React.Component {
                     <Col>
                         <Card
                             style={{
-                                marginTop: 100,
+                                marginTop: 150,
                                 marginBottom: 50,
                                 width: 300,
                             }}

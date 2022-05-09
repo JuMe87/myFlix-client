@@ -90,9 +90,9 @@ export function RegistrationView(props) {
                 <Col>
                     <Card
                         style={{
-                            marginTop: 100,
+                            marginTop: 150,
                             marginBottom: 50,
-                            width: "30",
+                            width: 300,
                         }}
                     >
                         <Card.Body>
