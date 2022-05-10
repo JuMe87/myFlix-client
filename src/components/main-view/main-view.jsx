@@ -16,19 +16,24 @@ import {
     NavLink,
 } from "react-bootstrap"
 
+import { connect } from "react-redux"
+
+import MoviesList from "../movies-list/movies-list"
 import { NavbarView } from "../navbar-view/navbar-view"
 import { RegistrationView } from "../registration-view/registration-view"
 import { LoginView } from "../login-view/login-view"
-import { MovieCard } from "../movie-card/movie-card"
+// import { MovieCard } from "../movie-card/movie-card"
 import { MovieView } from "../movie-view/movie-view"
 import { DirectorView } from "../director-view/director-view"
 import { GenreView } from "../genre-view/genre-view"
 import { ProfileView } from "../profile-view/profile-view"
 import { ProfileView } from "../profile-view/profile-view"
 
+import { setMovies } from "../../actions/actions"
+
 import "./main-view.scss"
 
-export class MainView extends React.Component {
+class MainView extends React.Component {
     // export = exposes the MainView component and makes it available for use by other components
     // One could omit export here and put it in a separate line such as export MainView
     // Class = creates MainView component
@@ -38,7 +43,6 @@ export class MainView extends React.Component {
         super()
 
         this.state = {
-            movies: [],
             user: null,
         }
     }
@@ -71,9 +75,7 @@ export class MainView extends React.Component {
             })
             .then((response) => {
                 // Assign the result to the state
-                this.setState({
-                    movies: response.data,
-                })
+                this.props.setMovies(response.data)
             })
             .catch(function (error) {
                 console.log(error)
@@ -88,7 +90,8 @@ export class MainView extends React.Component {
     }
 
     render() {
-        const { movies, user } = this.state
+        let { movies } = this.props
+        let { user } = this.state
 
         return (
             // <Container style={{ paddingTop: "4rem " }} fluid>
@@ -167,11 +170,7 @@ export class MainView extends React.Component {
                                         )
                                     if (movies.length === 0)
                                         return <div className="main-view" />
-                                    return movies.map((m) => (
-                                        <Col md={3} key={m._id}>
-                                            <MovieCard movie={m} />
-                                        </Col>
-                                    ))
+                                    return <MoviesList movies={movies} />
                                 }}
                             />
 
@@ -358,4 +357,10 @@ export class MainView extends React.Component {
     }
 }
 
-export default MainView
+// Function allows component to subscribe to store updates, anytime the store is updated, this function is called
+let mapStateToProps = (state) => {
+    return { movies: state.movies }
+}
+
+// mapStateToProps should take the store state as an argument andn return the new props for the component
+export default connect(mapStateToProps, { setMovies })(MainView)
