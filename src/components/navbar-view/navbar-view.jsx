@@ -1,7 +1,6 @@
 import React from "react"
 import { Navbar, Container, Nav, Button, Form } from "react-bootstrap"
-import { NavLink } from "react-router-dom"
-import { Link } from "react-router-dom"
+import { NavLink, Link } from "react-router-dom"
 
 import "./navbar-view.scss"
 
@@ -31,30 +30,40 @@ export function NavbarView({ user }) {
             variant="dark"
         >
             <Container>
-                <Navbar.Brand className="navbar-logo" href="/">
-                    myFlix
+                <Navbar.Brand className="navbar-logo" as={NavLink} to="/">
+                    My Flix
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="ml-auto">
                         {isAuth() && (
-                            <Nav.Link as={Link} to="/users/username">
+                            <Nav.Link as={NavLink} to={`/users/${user}`}>
                                 {user}
                             </Nav.Link>
                         )}
+                        {/* {user && (
+                            <Nav.Link as={NavLink} to={`/user-update/${user}`}>
+                                Update Profile
+                            </Nav.Link>
+                        )} */}
                         {isAuth() && (
-                            <Button
-                                variant="link"
+                            <Nav.Link
                                 onClick={() => {
-                                    onLoggedOut()
+                                    this.onLoggedOut()
                                 }}
                             >
                                 Logout
-                            </Button>
+                            </Nav.Link>
                         )}
-                        {!isAuth() && <Nav.Link href="/">Sign-in</Nav.Link>}
                         {!isAuth() && (
-                            <Nav.Link href="/register">Sign-up</Nav.Link>
+                            <Nav.Link as={NavLink} to="/login">
+                                Login
+                            </Nav.Link>
+                        )}
+                        {!isAuth() && (
+                            <Nav.Link as={NavLink} to="/register">
+                                Register
+                            </Nav.Link>
                         )}
                     </Nav>
                 </Navbar.Collapse>

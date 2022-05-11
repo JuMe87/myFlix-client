@@ -2,60 +2,72 @@ import React from "react"
 import PropTypes from "prop-types"
 import "./director-view.scss"
 
-import { Row, Col, Button } from "react-bootstrap"
+import {
+    Form,
+    Button,
+    Card,
+    CardGroup,
+    Container,
+    Col,
+    Row,
+} from "react-bootstrap"
 
 export class DirectorView extends React.Component {
     render() {
         const { director, onBackClick } = this.props
 
         return (
-            <>
+            <Container>
                 <Row>
-                    <Col
-                        med={4}
-                        className="director-view bg-light text-black"
-                        style={{ marginTop: 150 }}
-                    >
-                        <div className="director-name" />
-                        <span className="label">Director: </span>
-                        <span className="value">{director.Name}</span>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col med={4} className="director-view bg-light text-black">
-                        <div className="director-name" />
-                        <span className="label">Bio: </span>
-                        <span className="value">{director.Bio}</span>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col med={4} className="director-view bg-light text-black">
-                        <div className="director-name" />
-                        <span className="label">Birth: </span>
-                        <span className="value">{director.Birth}</span>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col med={4} className="director-view bg-light text-black">
-                        <div className="director-name" />
-                        <span className="label">Death: </span>
-                        <span className="value">{director.Death}</span>
-                    </Col>
-                </Row>
-                <Row>
+                    <Col></Col>
                     <Col>
-                        <Button
-                            onClick={() => {
-                                onBackClick(null)
+                        <Card
+                            style={{
+                                marginTop: 150,
+                                marginBottom: 50,
+                                width: 300,
                             }}
-                            variant="danger"
-                            style={{ marginTop: 50 }}
                         >
-                            Back
-                        </Button>
+                            <Card.Body>
+                                <Card.Title>
+                                    <span className="label">Director: </span>
+                                    <span className="value">
+                                        {director.Name}
+                                    </span>
+                                </Card.Title>
+                                <Card.Text>
+                                    <span className="value">
+                                        {director.Bio}
+                                    </span>
+                                </Card.Text>
+                                <Card.Text>
+                                    <span className="label">Birth: </span>
+                                    <span className="value">
+                                        {director.Birth}
+                                    </span>
+                                </Card.Text>
+                                <Card.Text>
+                                    <span className="label">Death: </span>
+                                    <span className="value">
+                                        {director.Death}
+                                    </span>
+                                </Card.Text>
+
+                                <Button
+                                    variant="primary"
+                                    type="submit"
+                                    onClick={() => {
+                                        onBackClick(null)
+                                    }}
+                                >
+                                    Back
+                                </Button>
+                            </Card.Body>
+                        </Card>
                     </Col>
+                    <Col></Col>
                 </Row>
-            </>
+            </Container>
         )
     }
 }
