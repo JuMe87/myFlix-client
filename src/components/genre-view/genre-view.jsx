@@ -1,6 +1,10 @@
 import React from "react"
 import PropTypes from "prop-types"
 
+import { connect } from "react-redux"
+
+import { setGenres } from "../../actions/actions"
+
 import "./genre-view.scss"
 
 import { Row, Col, Button } from "react-bootstrap"
@@ -55,4 +59,7 @@ GenreView.propTypes = {
     onBackClick: PropTypes.func.isRequired,
 }
 
-export default GenreView
+let mapStateToProps = (state) => {
+    return { genres: state.genres }
+}
+export default connect(mapStateToProps, { setGenres })(GenreView)

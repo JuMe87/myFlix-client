@@ -11,6 +11,17 @@ import { MovieView } from "../movie-view/movie-view"
 import { DirectorView } from "../director-view/director-view"
 import { GenreView } from "../genre-view/genre-view"
 import { ProfileView } from "../profile-view/profile-view"
+import { ProfileView } from "../profile-view/profile-view"
+
+import {
+    setMovies,
+    setUser,
+    setFavorites,
+    setDirectors,
+    setGenres,
+    setUserData,
+} from "../../actions/actions"
+import { connect } from "react-redux"
 
 import "./main-view.scss"
 
@@ -279,4 +290,23 @@ export class MainView extends React.Component {
     }
 }
 
-export default MainView
+// Function allows component to subscribe to store updates, anytime the store is updated, this function is called
+let mapStateToProps = (state) => {
+    return {
+        movies: state.movies,
+        user: state.user,
+        favorites: state.favorites,
+        genres: state.genres,
+        directors: state.directors,
+    }
+}
+
+// mapStateToProps should take the store state as an argument andn return the new props for the component
+export default connect(mapStateToProps, {
+    setMovies,
+    setUser,
+    setFavorites,
+    setDirectors,
+    setGenres,
+    setUserData,
+})(MainView)

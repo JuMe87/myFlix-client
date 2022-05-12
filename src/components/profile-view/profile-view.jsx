@@ -23,7 +23,7 @@ export class ProfileView extends React.Component {
             Password: null,
             Email: null,
             Birthday: null,
-            FavoriteMovies: [],
+            // FavoriteMovies: [],
         }
     }
 
@@ -261,7 +261,7 @@ export class ProfileView extends React.Component {
                     </Col>
                 </Row>
 
-                <Row>
+                {/* <Row>
                     <Col>
                         <Card>
                             <Card.Body>
@@ -318,7 +318,7 @@ export class ProfileView extends React.Component {
                             </Card.Body>
                         </Card>
                     </Col>
-                </Row>
+                </Row> */}
             </Container>
         )
     }
