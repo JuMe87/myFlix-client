@@ -57,11 +57,35 @@ class MainView extends React.Component {
     componentDidMount() {
         let accessToken = localStorage.getItem("token")
         if (accessToken !== null) {
+            const user = localStorage.getItem("user")
+            this.props.setUser(user)
             this.setState({
-                user: localStorage.getItem("user"),
+                user,
             })
             this.getMovies(accessToken)
+            this.getUser(accessToken)
         }
+    }
+
+    getUser(token) {
+        const Username = localStorage.getItem("user")
+
+        axios
+            .get(`https://julesmyflixdb.herokuapp.com/users/${Username}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((response) => {
+                this.props.setUserData({
+                    Username: response.data.Username,
+                    Password: response.data.Password,
+                    Email: response.data.Email,
+                    Birthday: response.data.Birthday,
+                    FavoriteMovies: response.data.FavoriteMovies,
+                })
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
     }
 
     onLoggedIn(authData) {
@@ -177,7 +201,7 @@ class MainView extends React.Component {
                                         )
                                     if (movies.length === 0)
                                         return <div className="main-view" />
-                                    return <MoviesList movies={movies} />
+                                    return <MoviesList />
                                 }}
                             />
 

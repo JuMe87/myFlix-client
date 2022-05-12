@@ -5,6 +5,8 @@ export const SET_USERDATA = "SET_USERDATA"
 export const SET_FAVORITES = "SET_FAVORITES"
 export const ADD_FAVMOVIES = "ADD_FAVMOVIES"
 export const REM_FAVMOVIES = "REM_FAVMOVIES"
+
+// unsure if those are needed
 export const SET_DIRECTORS = "SET_DIRECTORS"
 export const SET_GENRES = "SET_GENRES"
 

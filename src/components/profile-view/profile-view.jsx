@@ -2,6 +2,7 @@ import React from "react"
 import axios from "axios"
 import "./profile-view.scss"
 import PropTypes from "prop-types"
+import { connect } from "react-redux"
 
 import {
     Container,
@@ -17,13 +18,12 @@ import {
 export class ProfileView extends React.Component {
     constructor() {
         super()
-
         this.state = {
             Username: null,
             Password: null,
             Email: null,
             Birthday: null,
-            // FavoriteMovies: [],
+            FavoriteMovies: [],
         }
     }
 
@@ -53,7 +53,7 @@ export class ProfileView extends React.Component {
                     Username: response.data.Username,
                     Password: response.data.Password,
                     Email: response.data.Email,
-                    Birthday: response.data.Birthday,
+                    Birthday: response.data.Birthday.substring(0, 10),
                     FavoriteMovies: response.data.FavoriteMovies,
                 })
             })
@@ -160,7 +160,7 @@ export class ProfileView extends React.Component {
     }
 
     render() {
-        const { movies } = this.props
+        const { movies, userData } = this.props
         const { FavoriteMovies, Username, Email, Birthday } = this.state
 
         if (!Username) {
