@@ -94,7 +94,7 @@ export class ProfileView extends React.Component {
             })
     }
 
-    onRemoveFavorite = (e, movies) => {
+    onRemoveFavorite = (e, movie) => {
         e.preventDefault()
         const Username = localStorage.getItem("user")
         const token = localStorage.getItem("token")
@@ -269,7 +269,7 @@ export class ProfileView extends React.Component {
                     <Col></Col>
                 </Row>
 
-                {/* <Row>
+                <Row>
                     <Col>
                         <Card>
                             <Card.Body>
@@ -288,37 +288,44 @@ export class ProfileView extends React.Component {
                                                 )
                                             ) {
                                                 return (
-                                                    <Card
-                                                        className="favorite-movie"
-                                                        key={movie._id}
-                                                    >
-                                                        <Card.Img
-                                                            className="favorite-movie-image"
-                                                            variant="top"
-                                                            crossOrigin="true"
-                                                            src={
-                                                                movie.ImagePath
-                                                            }
-                                                        />
-                                                        <Card.Body>
-                                                            <Card.Title className="movie-title">
-                                                                {movie.Title}
-                                                            </Card.Title>
-                                                            <Button
-                                                                value={
-                                                                    movie._id
+                                                    <Col>
+                                                        <Card
+                                                            className="favorite-movie"
+                                                            key={movie._id}
+                                                        >
+                                                            <Card.Img
+                                                                className="favorite-movie-image"
+                                                                variant="top"
+                                                                crossOrigin="true"
+                                                                src={
+                                                                    movie.ImagePath
                                                                 }
-                                                                onClick={(e) =>
-                                                                    this.onRemoveFavorite(
-                                                                        e,
-                                                                        movie
-                                                                    )
-                                                                }
-                                                            >
-                                                                Remove from List
-                                                            </Button>
-                                                        </Card.Body>
-                                                    </Card>
+                                                            />
+                                                            <Card.Body>
+                                                                <Card.Title className="movie-title">
+                                                                    {
+                                                                        movie.Title
+                                                                    }
+                                                                </Card.Title>
+                                                                <Button
+                                                                    value={
+                                                                        movie._id
+                                                                    }
+                                                                    onClick={(
+                                                                        e
+                                                                    ) =>
+                                                                        this.onRemoveFavorite(
+                                                                            e,
+                                                                            movie
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    Remove from
+                                                                    List
+                                                                </Button>
+                                                            </Card.Body>
+                                                        </Card>
+                                                    </Col>
                                                 )
                                             }
                                         })}
@@ -326,7 +333,7 @@ export class ProfileView extends React.Component {
                             </Card.Body>
                         </Card>
                     </Col>
-                </Row> */}
+                </Row>
             </Container>
         )
     }

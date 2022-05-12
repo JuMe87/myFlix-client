@@ -27,7 +27,6 @@ import { MovieView } from "../movie-view/movie-view"
 import { DirectorView } from "../director-view/director-view"
 import { GenreView } from "../genre-view/genre-view"
 import { ProfileView } from "../profile-view/profile-view"
-import { ProfileView } from "../profile-view/profile-view"
 
 import {
     setMovies,
@@ -349,6 +348,7 @@ class MainView extends React.Component {
                                         <Col>
                                             <ProfileView
                                                 user={user}
+                                                movies={movies}
                                                 onBackClick={() =>
                                                     history.goBack()
                                                 }

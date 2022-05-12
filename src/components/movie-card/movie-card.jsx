@@ -43,7 +43,7 @@ export class MovieCard extends React.Component {
     }
 
     render() {
-        const { movie, onAddFavorite } = this.props
+        const { movie } = this.props
 
         return (
             <Card>
