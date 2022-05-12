@@ -170,8 +170,15 @@ export class ProfileView extends React.Component {
         return (
             <Container>
                 <Row>
+                    <Col></Col>
                     <Col>
-                        <Card>
+                        <Card
+                            style={{
+                                marginTop: 150,
+                                marginBottom: 50,
+                                width: 300,
+                            }}
+                        >
                             <Card.Body>
                                 <Card.Title>Profile</Card.Title>
                                 <Form
@@ -206,7 +213,7 @@ export class ProfileView extends React.Component {
                                             type="password"
                                             name="Password"
                                             placeholder="New Password"
-                                            value=""
+                                            // value=""
                                             onChange={(e) =>
                                                 this.setPassword(e.target.value)
                                             }
@@ -259,6 +266,7 @@ export class ProfileView extends React.Component {
                             </Card.Body>
                         </Card>
                     </Col>
+                    <Col></Col>
                 </Row>
 
                 {/* <Row>

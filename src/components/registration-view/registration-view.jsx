@@ -11,9 +11,12 @@ import {
     Row,
 } from "react-bootstrap"
 
+import { Link } from "react-router-dom"
+
 import "./registration-view.scss"
 
 export function RegistrationView(props) {
+    // const [name, setName] = useState("")
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
@@ -25,6 +28,7 @@ export function RegistrationView(props) {
     const [emailErr, setEmailErr] = useState("")
     const [birthdayErr, setbirthdayErr] = useState("")
 
+    // Validate function
     const validate = () => {
         let isReq = true
 
@@ -71,12 +75,14 @@ export function RegistrationView(props) {
         return isReq
     }
 
+    // Assign variable isReq to validate function
     const handleSubmit = (e) => {
         e.preventDefault()
         const isReq = validate()
         if (isReq) {
             axios
                 .post("https://julesmyflixdb.herokuapp.com/users", {
+                    // Name: name,
                     Username: username,
                     Password: password,
                     Email: email,
@@ -85,14 +91,14 @@ export function RegistrationView(props) {
                 .then((response) => {
                     const data = response.data
                     console.log(data)
-                    alert("Success! Please Login.")
+                    alert("Registration successful, please login!")
                     window.open("/", "_self")
                     //The second argument '_self' is necessary so that the page will
                     //open in the current tab
                 })
                 .catch((response) => {
                     console.error(response)
-                    alert("something wasn't entered right")
+                    alert("unable to register")
                 })
         }
     }
@@ -100,6 +106,7 @@ export function RegistrationView(props) {
     return (
         <Container>
             <Row>
+                <Col></Col>
                 <Col>
                     <Card
                         style={{
@@ -181,10 +188,17 @@ export function RegistrationView(props) {
                                 >
                                     Submit
                                 </Button>
+                                <p></p>
+                                <p>
+                                    {" "}
+                                    Already registered?{" "}
+                                    <Link to={"/"}>Sign-in</Link> here
+                                </p>
                             </Form>
                         </Card.Body>
                     </Card>
                 </Col>
+                <Col></Col>
             </Row>
         </Container>
     )
@@ -192,6 +206,7 @@ export function RegistrationView(props) {
 
 RegistrationView.propTypes = {
     register: PropTypes.shape({
+        // Name: PropTypes.string.isRequired,
         Username: PropTypes.string.isRequired,
         Password: PropTypes.string.isRequired,
         Email: PropTypes.string.isRequired,
