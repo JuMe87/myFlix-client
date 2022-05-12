@@ -15,23 +15,9 @@ import {
     FormControl,
 } from "react-bootstrap"
 
-export class ProfileView extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            Username: null,
-            Password: null,
-            Email: null,
-            Birthday: null,
-            FavoriteMovies: [],
-        }
-    }
+import { setUserData } from "../../actions/actions"
 
-    componentDidMount() {
-        const accessToken = localStorage.getItem("token")
-        this.getUser(accessToken)
-    }
-
+class ProfileView extends React.Component {
     onLoggedOut() {
         localStorage.removeItem("token")
         localStorage.removeItem("user")
@@ -39,27 +25,6 @@ export class ProfileView extends React.Component {
             user: null,
         })
         window.open("/", "_self")
-    }
-
-    getUser(token) {
-        const Username = localStorage.getItem("user")
-
-        axios
-            .get(`https://julesmyflixdb.herokuapp.com/users/${Username}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            })
-            .then((response) => {
-                this.setState({
-                    Username: response.data.Username,
-                    Password: response.data.Password,
-                    Email: response.data.Email,
-                    Birthday: response.data.Birthday.substring(0, 10),
-                    FavoriteMovies: response.data.FavoriteMovies,
-                })
-            })
-            .catch(function (error) {
-                console.log(error)
-            })
     }
 
     editUser = (e) => {
@@ -161,7 +126,7 @@ export class ProfileView extends React.Component {
 
     render() {
         const { movies, userData } = this.props
-        const { FavoriteMovies, Username, Email, Birthday } = this.state
+        const { FavoriteMovies, Username, Email, Birthday } = this.props
 
         if (!Username) {
             return null
@@ -360,4 +325,9 @@ ProfileView.propTypes = {
     onBackClick: PropTypes.func.isRequired,
 }
 
-export default ProfileView
+let mapStateToProps = (state) => {
+    console.log(state)
+    return { ...state.userData, movies: state.movies }
+}
+
+export default connect(mapStateToProps, { setUserData })(ProfileView)
