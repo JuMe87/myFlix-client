@@ -12,6 +12,12 @@ import {
     Row,
 } from "react-bootstrap"
 
+import { connect } from "react-redux"
+
+import { setDirectors } from "../../actions/actions"
+
+import "./director-view.scss"
+
 export class DirectorView extends React.Component {
     render() {
         const { director, onBackClick } = this.props
@@ -82,4 +88,8 @@ DirectorView.propTypes = {
     onBackClick: PropTypes.func.isRequired,
 }
 
-export default DirectorView
+let mapStateToProps = (state) => {
+    return { directors: state.directors }
+}
+
+export default connect(mapStateToProps, { setDirectors })(DirectorView)

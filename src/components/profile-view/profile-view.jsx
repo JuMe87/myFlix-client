@@ -2,6 +2,7 @@ import React from "react"
 import axios from "axios"
 import "./profile-view.scss"
 import PropTypes from "prop-types"
+import { connect } from "react-redux"
 
 import {
     Container,
@@ -14,24 +15,9 @@ import {
     FormControl,
 } from "react-bootstrap"
 
-export class ProfileView extends React.Component {
-    constructor() {
-        super()
+import { setUserData } from "../../actions/actions"
 
-        this.state = {
-            Username: null,
-            Password: null,
-            Email: null,
-            Birthday: null,
-            FavoriteMovies: [],
-        }
-    }
-
-    componentDidMount() {
-        const accessToken = localStorage.getItem("token")
-        this.getUser(accessToken)
-    }
-
+class ProfileView extends React.Component {
     onLoggedOut() {
         localStorage.removeItem("token")
         localStorage.removeItem("user")
@@ -39,27 +25,6 @@ export class ProfileView extends React.Component {
             user: null,
         })
         window.open("/", "_self")
-    }
-
-    getUser(token) {
-        const Username = localStorage.getItem("user")
-
-        axios
-            .get(`https://julesmyflixdb.herokuapp.com/users/${Username}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            })
-            .then((response) => {
-                this.setState({
-                    Username: response.data.Username,
-                    Password: response.data.Password,
-                    Email: response.data.Email,
-                    Birthday: response.data.Birthday,
-                    FavoriteMovies: response.data.FavoriteMovies,
-                })
-            })
-            .catch(function (error) {
-                console.log(error)
-            })
     }
 
     editUser = (e) => {
@@ -94,7 +59,7 @@ export class ProfileView extends React.Component {
             })
     }
 
-    onRemoveFavorite = (e, movies) => {
+    onRemoveFavorite = (e, movie) => {
         e.preventDefault()
         const Username = localStorage.getItem("user")
         const token = localStorage.getItem("token")
@@ -160,8 +125,8 @@ export class ProfileView extends React.Component {
     }
 
     render() {
-        const { movies } = this.props
-        const { FavoriteMovies, Username, Email, Birthday } = this.state
+        const { movies, userData } = this.props
+        const { FavoriteMovies, Username, Email, Birthday } = this.props
 
         if (!Username) {
             return null
@@ -288,37 +253,44 @@ export class ProfileView extends React.Component {
                                                 )
                                             ) {
                                                 return (
-                                                    <Card
-                                                        className="favorite-movie"
-                                                        key={movie._id}
-                                                    >
-                                                        <Card.Img
-                                                            className="favorite-movie-image"
-                                                            variant="top"
-                                                            crossOrigin="true"
-                                                            src={
-                                                                movie.ImagePath
-                                                            }
-                                                        />
-                                                        <Card.Body>
-                                                            <Card.Title className="movie-title">
-                                                                {movie.Title}
-                                                            </Card.Title>
-                                                            <Button
-                                                                value={
-                                                                    movie._id
+                                                    <Col>
+                                                        <Card
+                                                            className="favorite-movie"
+                                                            key={movie._id}
+                                                        >
+                                                            <Card.Img
+                                                                className="favorite-movie-image"
+                                                                variant="top"
+                                                                crossOrigin="true"
+                                                                src={
+                                                                    movie.ImagePath
                                                                 }
-                                                                onClick={(e) =>
-                                                                    this.onRemoveFavorite(
-                                                                        e,
-                                                                        movie
-                                                                    )
-                                                                }
-                                                            >
-                                                                Remove from List
-                                                            </Button>
-                                                        </Card.Body>
-                                                    </Card>
+                                                            />
+                                                            <Card.Body>
+                                                                <Card.Title className="movie-title">
+                                                                    {
+                                                                        movie.Title
+                                                                    }
+                                                                </Card.Title>
+                                                                <Button
+                                                                    value={
+                                                                        movie._id
+                                                                    }
+                                                                    onClick={(
+                                                                        e
+                                                                    ) =>
+                                                                        this.onRemoveFavorite(
+                                                                            e,
+                                                                            movie
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    Remove from
+                                                                    List
+                                                                </Button>
+                                                            </Card.Body>
+                                                        </Card>
+                                                    </Col>
                                                 )
                                             }
                                         })}
@@ -353,4 +325,9 @@ ProfileView.propTypes = {
     onBackClick: PropTypes.func.isRequired,
 }
 
-export default ProfileView
+let mapStateToProps = (state) => {
+    console.log(state)
+    return { ...state.userData, movies: state.movies }
+}
+
+export default connect(mapStateToProps, { setUserData })(ProfileView)

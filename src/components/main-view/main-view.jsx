@@ -6,15 +6,7 @@ import {
     NavLink as RRNavLink,
 } from "react-router-dom"
 import axios from "axios"
-import {
-    Col,
-    Row,
-    Container,
-    Button,
-    Nav,
-    Navbar,
-    NavLink,
-} from "react-bootstrap"
+import { Col, Row, Container } from "react-bootstrap"
 
 import { connect } from "react-redux"
 
@@ -26,10 +18,16 @@ import { LoginView } from "../login-view/login-view"
 import { MovieView } from "../movie-view/movie-view"
 import { DirectorView } from "../director-view/director-view"
 import { GenreView } from "../genre-view/genre-view"
-import { ProfileView } from "../profile-view/profile-view"
-import { ProfileView } from "../profile-view/profile-view"
+import ProfileView from "../profile-view/profile-view"
 
-import { setMovies } from "../../actions/actions"
+import {
+    setMovies,
+    setUser,
+    setFavorites,
+    setUserData,
+} from "../../actions/actions"
+
+import { connect } from "react-redux"
 
 import "./main-view.scss"
 
@@ -50,11 +48,35 @@ class MainView extends React.Component {
     componentDidMount() {
         let accessToken = localStorage.getItem("token")
         if (accessToken !== null) {
+            const user = localStorage.getItem("user")
+            this.props.setUser(user)
             this.setState({
-                user: localStorage.getItem("user"),
+                user,
             })
             this.getMovies(accessToken)
+            this.getUser(accessToken)
         }
+    }
+
+    getUser(token) {
+        const Username = localStorage.getItem("user")
+
+        axios
+            .get(`https://julesmyflixdb.herokuapp.com/users/${Username}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((response) => {
+                this.props.setUserData({
+                    Username: response.data.Username,
+                    Password: response.data.Password,
+                    Email: response.data.Email,
+                    Birthday: response.data.Birthday,
+                    FavoriteMovies: response.data.FavoriteMovies,
+                })
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
     }
 
     onLoggedIn(authData) {
@@ -170,7 +192,7 @@ class MainView extends React.Component {
                                         )
                                     if (movies.length === 0)
                                         return <div className="main-view" />
-                                    return <MoviesList movies={movies} />
+                                    return <MoviesList />
                                 }}
                             />
 
@@ -340,7 +362,6 @@ class MainView extends React.Component {
                                     return (
                                         <Col>
                                             <ProfileView
-                                                user={user}
                                                 onBackClick={() =>
                                                     history.goBack()
                                                 }
@@ -359,8 +380,19 @@ class MainView extends React.Component {
 
 // Function allows component to subscribe to store updates, anytime the store is updated, this function is called
 let mapStateToProps = (state) => {
-    return { movies: state.movies }
+    return {
+        movies: state.movies,
+        user: state.user,
+        favorites: state.favorites,
+        genres: state.genres,
+        directors: state.directors,
+    }
 }
 
 // mapStateToProps should take the store state as an argument andn return the new props for the component
-export default connect(mapStateToProps, { setMovies })(MainView)
+export default connect(mapStateToProps, {
+    setMovies,
+    setUser,
+    setFavorites,
+    setUserData,
+})(MainView)

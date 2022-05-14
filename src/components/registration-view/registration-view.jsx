@@ -26,32 +26,52 @@ export function RegistrationView(props) {
     const [usernameErr, setUsernameErr] = useState("")
     const [passwordErr, setPasswordErr] = useState("")
     const [emailErr, setEmailErr] = useState("")
+    const [birthdayErr, setbirthdayErr] = useState("")
 
     // Validate function
     const validate = () => {
         let isReq = true
+
         if (!username) {
             setUsernameErr("Create Username")
             isReq = false
-        } else if (username.length < 8) {
-            setUsernameErr("Username must be 8 characters long")
+        } else if (username.length > 8) {
+            setUsernameErr("Username must be min 8 characters long")
             isReq = false
+        } else {
+            setusernameErr("")
+            isReq = true
         }
+
         if (!password) {
-            setPasswordErr("Create Password(Min 8 characters)")
+            setPasswordErr("Create Password")
             isReq = false
-        } else if (password.length < 6) {
-            setPasswordErr("Password must be 6 characters long")
+        } else if (password.length > 6) {
+            setPasswordErr("Password must be at least 7 characters long")
             isReq = false
+        } else {
+            setpasswordErr("")
+            isReq = true
         }
+
         if (!email) {
             setEmailErr("Add Email")
             isReq = false
         } else if (email.indexOf("@") === -1) {
             setEmail("Invalid Email")
             isReq = false
+        } else {
+            setemailErr("")
+            isReq = true
         }
 
+        if (!birthday) {
+            setbirthdayErr("Enter Birthday")
+            isReq = false
+        } else {
+            setbirthdayErr("")
+            isReq = true
+        }
         return isReq
     }
 
@@ -110,26 +130,9 @@ export function RegistrationView(props) {
                                             setUsername(e.target.value)
                                         }
                                         required
-                                        placeholder="Enter a username"
+                                        placeholder="Enter a username (min 8 characters)"
                                     />
                                 </Form.Group>
-
-                                {/* <Form.Group
-                                    controlId="formName"
-                                    className="reg-form-inputs"
-                                >
-                                    <Form.Label>Name</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        value={name}
-                                        onChange={(e) =>
-                                            setName(e.target.value)
-                                        }
-                                        required
-                                        placeholder="Enter a Name"
-                                    />
-                                    {values.nameErr && <p>{values.nameErr}</p>}
-                                </Form.Group> */}
 
                                 <Form.Group
                                     controlId="formPassword"
@@ -156,6 +159,7 @@ export function RegistrationView(props) {
                                     <Form.Control
                                         type="email"
                                         value={email}
+                                        autoComplete="email"
                                         onChange={(e) =>
                                             setEmail(e.target.value)
                                         }
@@ -168,7 +172,9 @@ export function RegistrationView(props) {
                                     <Form.Label>Birthday</Form.Label>
                                     <Form.Control
                                         type="date"
-                                        name="birthday"
+                                        value={birthday}
+                                        className="birthday-input"
+                                        autoComplete="bday"
                                         onChange={(e) =>
                                             setBirthday(e.target.value)
                                         }

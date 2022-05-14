@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import axios from "axios"
 import { Button, Card } from "react-bootstrap"
 
 import { Link } from "react-router-dom"
@@ -7,8 +8,42 @@ import { Link } from "react-router-dom"
 import "./movie-card.scss"
 
 export class MovieCard extends React.Component {
+    constructor() {
+        super()
+
+        this.state = {
+            FavoriteMovies: [],
+        }
+    }
+
+    onAddFavorite = (movie) => {
+        const Username = localStorage.getItem("user")
+        const token = localStorage.getItem("token")
+
+        axios
+            .post(
+                `https://julesmyflixdb.herokuapp.com/users/${Username}/movies/${movie._id}`,
+                {
+                    FavoriteMovies: this.state.FavoriteMovies,
+                },
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            )
+            .then((response) => {
+                this.setState({
+                    FavoriteMovies: response.data.FavoriteMovies,
+                })
+                console.log(response)
+                alert("Movie added to Favorites")
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }
+
     render() {
-        const { movie, onBackClick } = this.props
+        const { movie } = this.props
 
         return (
             <Card>
@@ -30,6 +65,15 @@ export class MovieCard extends React.Component {
                         <Button variant="link">{movie.Director.Name}</Button>
                     </Link>
                 </Card.Body>
+                <Card.Footer className="text-center">
+                    <Button
+                        variant="primary"
+                        value={movie._id}
+                        onClick={() => this.onAddFavorite(movie)}
+                    >
+                        Add to Favorite
+                    </Button>
+                </Card.Footer>
             </Card>
         )
     }
@@ -51,7 +95,7 @@ MovieCard.propTypes = {
             Death: PropTypes.string.isRequired,
         }).isRequired,
     }).isRequired,
-    //     onBackClick: PropTypes.func.isRequired,
+    // onBackClick: PropTypes.func.isRequired,
 }
 
 export default MovieCard
