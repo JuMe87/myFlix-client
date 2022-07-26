@@ -101,7 +101,7 @@ export class ProfileView extends React.Component {
 
         axios
             .delete(
-                `https://julesmyflixdb.herokuapp.com/users/${Username}/movies/${movie._id}`,
+                `https://julesmyflixdb.herokuapp.com/users/${Username}/movies/${movies._id}`,
                 {
                     headers: { Authorization: `Bearer ${token}` },
                 }

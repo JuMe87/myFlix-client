@@ -1,19 +1,12 @@
 {
     "name": "myflix-client",
     "version": "1.0.0",
+    "private": true,
+    "homepage": "https://github.com/JuMe87/myFlix-client.git",
     "description": "",
     "source": "src/index.html",
-    "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject",
-        "predeploy": "npm run build",
-        "deploy": "gh-pages -d build"
-    },
     "author": "",
     "license": "ISC",
-    "homepage": "https://JuMe87.github.io",
     "dependencies": {
         "@parcel/resolver-glob": "^2.5.0",
         "@parcel/transformer-css": "^2.5.0",
@@ -28,6 +21,32 @@
         "react-scripts": "^5.0.1",
         "redux": "^4.2.0",
         "redux-devtools-extension": "^2.13.9"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
     },
     "devDependencies": {
         "@parcel/transformer-sass": "^2.0.0-rc.0",
